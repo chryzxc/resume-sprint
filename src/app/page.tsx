@@ -1,103 +1,138 @@
-import Image from "next/image";
+"use client";
+import {
+  SparklesIcon,
+  BoltIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
+import { Typewriter } from "react-simple-typewriter";
+import Lottie from "lottie-react";
+import aiAnimation from "../../public/animations/ai.json";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="bg-gradient-to-b from-gray-900 via-indigo-900 to-indigo-950 text-white">
+      {/* HERO SECTION */}
+      <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-32">
+        <h1 className="text-5xl sm:text-6xl font-extrabold mb-6">
+          Build Stunning Resumés <br />
+          <span className="text-indigo-400">in Seconds with AI</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-indigo-100 max-w-2xl mb-8">
+          No sign-up needed. Just input your info and let the AI do the rest.
+        </p>
+        <a
+          href="#generate"
+          className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white font-semibold transition"
+        >
+          Generate My Resume
+        </a>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* AI PREVIEW */}
+      <section className="relative py-32 bg-gradient-to-br from-gray-950 via-indigo-900 to-purple-900 overflow-hidden">
+        <div className="absolute -top-40 left-0 w-[500px] h-[500px] bg-purple-500 opacity-10 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-indigo-500 opacity-10 blur-[120px] rounded-full" />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <SparklesIcon className="h-8 w-8 text-yellow-400 animate-pulse" />
+            <span className="text-yellow-300 font-medium text-lg tracking-wide uppercase">
+              Watch AI Build It
+            </span>
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            Live Resume Generation Preview
+          </h2>
+          <p className="max-w-2xl mx-auto text-indigo-100 text-lg mb-12">
+            AI-generated summaries, experiences, and skills tailored to your
+            profile.
+          </p>
+
+          {/* Lottie Animation */}
+          <div className="w-44 sm:w-56 mx-auto mb-10">
+            <Lottie animationData={aiAnimation} loop autoplay />
+          </div>
+
+          {/* Glass card preview */}
+          <div className="backdrop-blur-lg bg-white/5 border border-white/20 rounded-2xl p-8 sm:p-12 shadow-xl text-left font-mono text-indigo-100 max-w-3xl mx-auto">
+            <p className="mb-4">
+              <span className="text-yellow-300 font-semibold">Summary:</span>{" "}
+              <Typewriter
+                words={[
+                  "Creative Software Engineer with expertise in React and backend architecture.",
+                  "UX-focused Designer passionate about clean, user-friendly interfaces.",
+                  "Data Scientist skilled in predictive modeling and Python scripting.",
+                ]}
+                loop={0}
+                cursor
+                cursorStyle="_"
+                typeSpeed={45}
+                deleteSpeed={30}
+                delaySpeed={2500}
+              />
+            </p>
+            <p className="mt-6">
+              <span className="text-yellow-300 font-semibold">Experience:</span>
+              <br />• Engineer @ TechCorp (2021–2023)
+              <br />• Intern @ DevHub (2020–2021)
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      </section>
+      {/* FEATURES */}
+      <section className="py-32 px-6 bg-gray-950 text-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-12">
+            Why Choose This Resume Builder?
+          </h2>
+          <div className="grid gap-12 sm:grid-cols-3 text-left">
+            <div className="flex flex-col items-start">
+              <BoltIcon className="h-8 w-8 text-indigo-400 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Instant Results</h3>
+              <p className="text-indigo-100">
+                Get a polished resume generated by AI in seconds. No editing
+                hassle.
+              </p>
+            </div>
+            <div className="flex flex-col items-start">
+              <UserCircleIcon className="h-8 w-8 text-indigo-400 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">No Account Needed</h3>
+              <p className="text-indigo-100">
+                Start building right away — no sign-up, no email, no nonsense.
+              </p>
+            </div>
+            <div className="flex flex-col items-start">
+              <SparklesIcon className="h-8 w-8 text-indigo-400 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Powered by AI</h3>
+              <p className="text-indigo-100">
+                Our AI understands your input and writes real, tailored resume
+                content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CALL TO ACTION */}
+      <section id="generate" className="bg-indigo-950 py-28 text-center">
+        <h2 className="text-4xl font-bold mb-6">Ready to Create Yours?</h2>
+        <p className="text-indigo-200 mb-8 text-lg">
+          It’s fast, free, and surprisingly smart.
+        </p>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/resume-builder"
+          className="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-indigo-900 font-bold rounded-xl transition"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          Launch Resume Builder
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-gray-950 text-center text-sm text-indigo-300 py-10">
+        © {new Date().getFullYear()} AI Resume Builder. No sign-up. Just
+        results.
       </footer>
-    </div>
+    </main>
   );
 }
