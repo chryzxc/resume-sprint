@@ -89,7 +89,11 @@ const WorkExperienceForm = () => {
       ))}
 
       <FormContainer.AddButton
-        label="Add Work Experience"
+        label={
+          !resume.work.length
+            ? "Add Work Experience"
+            : "Add Another Work Experience"
+        }
         onClick={() =>
           addWork({
             id: uuidv4(),

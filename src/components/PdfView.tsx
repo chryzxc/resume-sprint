@@ -4,17 +4,26 @@ import { TTemplateKeys } from "@/type";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useEffect, useMemo } from "react";
 import { createRoot } from "react-dom/client";
-import { EleganceBold } from "./templates/EleganceBold";
-import { SlatePro } from "./templates/SlatePro";
+import BoldGeometric from "./templates/BoldGeometric";
+import ClassicProfessional from "./templates/ClassicProfessional";
+import Clean from "./templates/Clean";
+import ModernSidebar from "./templates/ModernSidebar";
+import Timeline from "./templates/Timeline";
+import AiGenerateResumeButton from "@/app/resume-builder/components/AiGenerateResumeButton";
+
+export const PDF_HEIGHT = 800;
 
 const PdfView = () => {
   const { activeTemplate, isLoadingPdfView, setIsLoadingPdfView, resume } =
     useResumeStore();
-  console.log("actuiveTemplate", activeTemplate);
+
   const pdfTemplate = useMemo(() => {
     const templateMapper: Record<TTemplateKeys, React.ReactNode> = {
-      "Slate Pro": <SlatePro data={resume} />,
-      "Elegance Bold": <EleganceBold data={resume} />,
+      "Classic Professional": <ClassicProfessional resume={resume} />,
+      "Modern Sidebar": <ModernSidebar resume={resume} />,
+      Timeline: <Timeline resume={resume} />,
+      "Bold Geometric": <BoldGeometric resume={resume} />,
+      Clean: <Clean resume={resume} />,
     };
 
     const selectedTemplate = templateMapper[activeTemplate];
@@ -29,8 +38,8 @@ const PdfView = () => {
     return (
       <PDFViewer
         width="100%"
-        height={600}
-        className="border rounded-lg shadow-lg"
+        // height={PDF_HEIGHT}
+        className="border rounded-lg shadow-lg h-[800px] "
       >
         {selectedTemplate}
       </PDFViewer>
@@ -49,7 +58,12 @@ const PdfView = () => {
   }, [isLoadingPdfView, setIsLoadingPdfView]);
 
   return (
-    <div className="h-full w-full">{!isLoadingPdfView && pdfTemplate}</div>
+    <div className="h-full w-full gap-4 flex flex-col">
+      <div className="flex justify-end w-full bg-red-500">
+        <AiGenerateResumeButton />
+      </div>
+      {!isLoadingPdfView && pdfTemplate}
+    </div>
   );
 };
 

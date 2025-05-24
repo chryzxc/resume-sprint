@@ -43,13 +43,13 @@ const SkillsForm = () => {
       ))}
 
       <FormContainer.AddButton
-        label="Add Skill"
+        label={!resume.skills.length ? "Add Skill" : "Add Another Skill"}
         onClick={() =>
           addSkill({
             id: uuidv4(),
             name: "",
             keywords: [],
-            level: "",
+            level: undefined,
           })
         }
       />

@@ -1,7 +1,6 @@
 import { IResume } from "@/type";
 import { cleanGeneratedResumeData } from "@/utils";
 import { Groq } from "groq-sdk";
-import { NextResponse } from "next/server";
 
 const sampleData: IResume = {
   basics: {
@@ -34,7 +33,7 @@ const sampleData: IResume = {
       endDate: "",
     },
   ],
-  skills: [{ id: "", name: "", level: "Expert" }],
+  skills: [{ name: "", level: "Expert" }],
   sections: [
     {
       title: "",
@@ -55,9 +54,9 @@ const sampleData: IResume = {
 
 export async function POST(req: Request) {
   const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-  const { content } = await req.json();
+  const { resumeData } = await req.json();
 
-  console.log("Resume data", content);
+  console.log("Resume data", resumeData);
   try {
     const response = await groq.chat.completions.create({
       model: "llama-3.1-8b-instant",
@@ -65,17 +64,20 @@ export async function POST(req: Request) {
       messages: [
         {
           role: "system",
-          content: `Create a resume data using the provided content and respond using a json format only. The label field in basics is the role name and generate the data based on the role. Only generate what is in the content and don't generate random values. Follow this format strictly. 
-          Resume content: ${JSON.stringify(content)}
+          content: `Fill the resume data and respond using a json format only. The label field in basics is the role name and generate the data based on the role. Follow this format strictly. 
+          Resume data: ${JSON.stringify(resumeData)}
           Output format: ${JSON.stringify(sampleData)}`,
         },
       ],
     });
 
     const rawFormat = response.choices[0].message.content as IResume;
-
-    return Response.json(cleanGeneratedResumeData(JSON.parse(rawFormat)));
+    console.log("RAW FORMT", rawFormat);
+    console.log("rawFormat.basics?.label ", JSON.parse(rawFormat).basics);
+    return Response.json({
+      resumeData: cleanGeneratedResumeData(JSON.parse(rawFormat)),
+    });
   } catch (error) {
-    return new NextResponse("Something went wrong", { status: 500 });
+    return Response.json({ error: error.message });
   }
 }

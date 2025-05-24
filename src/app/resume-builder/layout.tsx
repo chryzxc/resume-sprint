@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 import SideBar from "@/components/SideBar";
 import Navigation from "./components/Navigation";
+import SmallScreenAlert from "./components/SmallScreenAlert";
 import TemplateSelector from "./components/TemplateSelector";
-import AiGenerateButton from "./components/AiGenerateButton";
 
 export const metadata: Metadata = {
   title: "Resume Sprint - Create Your Resume",
@@ -14,35 +14,35 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div
-      className="min-h-screen flex flex-col bg-[#F9FAFB] text-gray-900"
-      style={{
-        fontFamily: "'Inter', sans-serif",
-      }}
-    >
-      {/* Header */}
-      <header className="max-w-8xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gray-200 gap-4">
-        <h1 className="text-3xl font-extrabold tracking-tight">
-          Resume Sprint
-        </h1>
-        <Navigation />
+    <>
+      <SmallScreenAlert />
+      <div className="hidden min-h-screen sm:flex flex-col bg-[#F9FAFB] text-gray-900">
+        {/* Header */}
 
-        <div className="flex flex-row gap-2 flex-1 justify-center items-center">
-          <AiGenerateButton />
+        <header className="max-w-8xl mx-auto w-full px-6 py-3 flex justify-between items-center border-b border-gray-200">
+          <h1 className="text-3xl font-extrabold tracking-tight">
+            Resume Sprint
+          </h1>
+          <Navigation />
+
+          {/* <div className="flex flex-row gap-2 flex-1 justify-center items-center"> */}
+          {/* <AiGenerateButton /> */}
           <TemplateSelector />
+          {/* </div> */}
+        </header>
+
+        {/* Main Content */}
+
+        <div className="flex flex-col lg:flex-row lg:flex-1 max-w-8xl mx-auto w-full px-6 py-4 gap-10 ">
+          {/* Sidebar */}
+          <SideBar />
+
+          {/* Content */}
+          <main className="flex-1 bg-white rounded-2xl shadow-md px-6 py-4 overflow-auto">
+            {children}
+          </main>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <div className="flex flex-1 max-w-8xl mx-auto w-full px-6 py-4 gap-10">
-        {/* Sidebar */}
-        <SideBar />
-
-        {/* Content */}
-        <main className="flex-1 bg-white rounded-2xl shadow-md p-10 overflow-auto">
-          {children}
-        </main>
       </div>
-    </div>
+    </>
   );
 }

@@ -130,8 +130,8 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className="bg-gray-950 text-center text-sm text-indigo-300 py-10">
-        © {new Date().getFullYear()} AI Resume Builder. No sign-up. Just
-        results.
+        © {new Date().getFullYear()} AI Resume Builder by Christian Rey
+        Villablanca. No sign-up. Just results.
       </footer>
     </main>
   );

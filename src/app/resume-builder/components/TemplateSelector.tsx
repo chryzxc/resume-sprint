@@ -1,8 +1,7 @@
 "use client";
-import { EleganceBold } from "@/components/templates/EleganceBold";
-import { SlatePro } from "@/components/templates/SlatePro";
+
 import { useResumeStore } from "@/stores/resumeBuilderStore";
-import { ITemplate, TTemplateKeys } from "@/type";
+import { TTemplateKeys } from "@/type";
 import { Select, SelectItem } from "@heroui/react";
 const designerResume: IResume = {
   basics: {
@@ -63,48 +62,14 @@ const designerResume: IResume = {
   ],
 };
 
-export const TEMPLATES: ITemplate[] = [
-  {
-    label: "Slate Pro",
-    component: SlatePro,
-  },
-  //   {
-  //     label: "Minimalist",
-  //     component: <Minimalist resumeData={designerResume} />,
-  //   },
-  // // {
-  // //   label: "Modern Executive",
-  // //   component: <ModernExecutive data={mockData} />,
-  // // },
-  // // {
-  // //   label: "MetroGrid",
-  // //   component: <MetroGrid data={mockData} />,
-  // // },
-  {
-    label: "Elegance Bold",
-    component: <EleganceBold data={designerResume} />,
-  },
-  // {
-  //   label: "Elegant Split",
-  //   component: <ElegantSplit data={resumeData} />,
-  // },
-  // {
-  //   label: "Modern Clean",
-  //   component: <ModernClean data={resumeData} />,
-  // },
-  // {
-  //   label: "Modern Block",
-  //   component: <ModernBlock data={resumeData} />,
-  // },
-  //   {
-  //     label: "Modern Bold",
-  //     component: <ModernBold data={designerResume} />,
-  //   },
-  //   {
-  //     label: "Minimal Two Column",
-  //     component: <MinimalTwoColumn data={designerResume} />,
-  //   },
+export const TEMPLATES: TTemplateKeys[] = [
+  "Classic Professional",
+  "Modern Sidebar",
+  "Timeline",
+  "Bold Geometric",
+  "Clean",
 ];
+
 const TemplateSelector = () => {
   const { activeTemplate, setActiveTemplate } = useResumeStore();
   return (
@@ -119,11 +84,8 @@ const TemplateSelector = () => {
       }}
     >
       {TEMPLATES.map((template) => (
-        <SelectItem
-          key={template.label}
-          onClick={() => setActiveTemplate(template.label)}
-        >
-          {template.label}
+        <SelectItem key={template} onClick={() => setActiveTemplate(template)}>
+          {template}
         </SelectItem>
       ))}
     </Select>

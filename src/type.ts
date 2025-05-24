@@ -47,7 +47,7 @@ export interface ISectionItem {
 }
 
 export interface ISection {
-  title: string;
+  title?: string;
   items: ISectionItem[];
 }
 
@@ -64,7 +64,12 @@ export interface IResume {
   sections?: ISection[];
 }
 
-export type TTemplateKeys = "Slate Pro" | "Elegance Bold";
+export type TTemplateKeys =
+  | "Classic Professional"
+  | "Modern Sidebar"
+  | "Timeline"
+  | "Bold Geometric"
+  | "Clean";
 
 export interface ITemplate {
   label: TTemplateKeys;

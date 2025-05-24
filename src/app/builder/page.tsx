@@ -85,9 +85,9 @@ export default function ResumeBuilderPage() {
 
         {/* Section tabs */}
         <nav className="flex space-x-6 border-b border-gray-200 mb-6">
-          {sections.map((sec) => (
+          {sections.map((sec, idx) => (
             <button
-              key={sec}
+              key={`${sec}-${idx}`}
               onClick={() => setActiveSection(sec)}
               className={`pb-2 font-semibold text-gray-700 ${
                 activeSection === sec

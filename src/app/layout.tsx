@@ -5,8 +5,8 @@ import "./globals.css";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
-  weight: "400",
-  subsets: ["greek"],
+  weight: "500",
+  subsets: ["cyrillic"],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interSans.variable} antialiased`}>
+      <body
+        className={`${interSans.variable} antialiased bg-[#F9FAFB]`}
+        style={{
+          fontFamily: "'Inter', sans-serif",
+        }}
+      >
         <RootProviders>{children}</RootProviders>
       </body>
     </html>

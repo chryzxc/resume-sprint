@@ -1,6 +1,7 @@
 "use client";
 import { useResumeStore } from "@/stores/resumeBuilderStore";
-import { Input } from "@heroui/react";
+import { DatePicker, Input } from "@heroui/react";
+
 import { v4 as uuidv4 } from "uuid";
 import FormContainer from "./FormContainer";
 
@@ -44,32 +45,30 @@ const EducationForm = () => {
                 updateEducation(index, "studyType", e.target.value)
               }
             />
-            <Input
+            <DatePicker
               label="Start Date"
-              type="date"
-              labelPlacement="outside"
               variant="bordered"
-              value={edu.startDate}
-              onChange={(e) =>
-                updateEducation(index, "startDate", e.target.value)
-              }
+
+              // value={toDateValue(edu.startDate)}
+              // onChange={(e) => updateEducation(index, "startDate", e?.toDate())}
             />
-            <Input
+
+            {/* <DatePicker
               label="End Date"
               type="date"
               labelPlacement="outside"
               variant="bordered"
-              value={edu.endDate}
-              onChange={(e) =>
-                updateEducation(index, "endDate", e.target.value)
-              }
-            />
+              value={parseDate(edu.endDate)}
+              onChange={(e) => updateEducation(index, "endDate", e)}
+            /> */}
           </FormContainer.FieldWrapper>
         </FormContainer.FieldContainerCard>
       ))}
 
       <FormContainer.AddButton
-        label="Add Education"
+        label={
+          !resume.education.length ? "Add Education" : "Add Another Education"
+        }
         onClick={() =>
           addEducation({
             id: uuidv4(),

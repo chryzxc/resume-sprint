@@ -26,9 +26,9 @@ const SideBar = () => {
   );
 
   return (
-    <aside className="flex rounded-2xl bg-[#1E3A8A] shadow-lg w-full max-w-[50vw]">
+    <aside className="flex rounded-2xl bg-[#1E3A8A] shadow-lg w-full lg:max-w-[50vw]">
       {/* Left column - Categories */}
-      <nav className="flex flex-col w-[250px] border-r border-yellow-400 p-6 space-y-3">
+      <nav className="flex flex-col w-[250px] border-r border-yellow-400 p-4 space-y-3">
         {navComponents.map((component, idx) => {
           const isActive = activeComponent.label === component.label;
           return (

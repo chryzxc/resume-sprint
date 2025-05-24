@@ -1,4 +1,12 @@
-import { IEducation, IResume, ISkill, IWork, TTemplateKeys } from "@/type";
+import {
+  IEducation,
+  IResume,
+  ISection,
+  ISectionItem,
+  ISkill,
+  IWork,
+  TTemplateKeys,
+} from "@/type";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -34,6 +42,17 @@ interface IResumeStore {
   removeSkill: (index: number) => void;
   updateSkill: (index: number, field: keyof ISkill, value: string) => void;
   updateResume: (key: keyof IResume, value: string) => void;
+  addSection: (data: ISection) => void;
+  removeSection: (index: number) => void;
+  updateSection: (index: number, field: keyof ISection, value: string) => void;
+  addSectionItem: (sectionIndex: number, data: ISectionItem) => void;
+  removeSectionItem: (sectionIndex: number, index: number) => void;
+  updateSectionItem: (
+    sectionIndex: number,
+    index: number,
+    field: keyof ISectionItem,
+    value: string | string[]
+  ) => void;
   resetResume: () => void;
   activeTemplate: TTemplateKeys;
   setActiveTemplate: (key: TTemplateKeys) => void;
@@ -179,7 +198,78 @@ export const useResumeStore = create(
             },
           },
         })),
+      addSection: (data) =>
+        set((state) => ({
+          resume: {
+            ...state.resume,
+            sections: [...(state.resume.sections || []), data],
+          },
+        })),
+      removeSection: (index) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
+        set((state) => {
+          const updatedData = state.resume.sections?.filter(
+            (_, idx) => idx !== index
+          );
+          return {
+            resume: {
+              ...state.resume,
+              sections: updatedData,
+            },
+          };
+        });
+        // set((state) => ({ ...state, isLoadingPdfView: false }));
+      },
+      updateSection: (index, field, value) =>
+        set((state) => {
+          const updated = [...(state.resume.sections || [])];
+          updated[index] = { ...updated[index], [field]: value };
+          return { resume: { ...state.resume, sections: updated } };
+        }),
+      addSectionItem: (sectionIndex, data) =>
+        set((state) => {
+          const updated = [...(state.resume.sections || [])];
+          const sectionItems = updated[sectionIndex].items;
 
+          updated[sectionIndex] = {
+            ...updated[sectionIndex],
+            items: [...sectionItems, data],
+          };
+          return {
+            resume: {
+              ...state.resume,
+              sections: updated,
+            },
+          };
+        }),
+      removeSectionItem: (sectionIndex, index) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
+        set((state) => {
+          const updated = [...(state.resume.sections || [])];
+          const sectionItems = updated[sectionIndex].items;
+          const updatedData = sectionItems.filter((_, idx) => idx !== index);
+
+          updated[sectionIndex] = {
+            ...updated[sectionIndex],
+            items: updatedData,
+          };
+          return {
+            resume: {
+              ...state.resume,
+              sections: updated,
+            },
+          };
+        });
+        // set((state) => ({ ...state, isLoadingPdfView: false }));
+      },
+      updateSectionItem: (sectionIndex, index, field, value) =>
+        set((state) => {
+          const sections = [...(state.resume.sections || [])];
+
+          const sectionItems = sections[sectionIndex].items;
+          sectionItems[index] = { ...sectionItems[index], [field]: value };
+          return { resume: { ...state.resume, sections: sections } };
+        }),
       updateResume: (key, value) =>
         set((state) => ({
           resume: {
@@ -193,7 +283,7 @@ export const useResumeStore = create(
           resume: initialState,
           activeSection: "basics",
         }),
-      activeTemplate: "Slate Pro",
+      activeTemplate: "Classic Professional",
       setActiveTemplate: (value) => {
         set({
           isLoadingPdfView: true,

@@ -1,6 +1,5 @@
 import { useResumeStore } from "@/stores/resumeBuilderStore";
-import { Form, Input, Textarea } from "@heroui/react";
-import FormWrapper from "./FormWrapper";
+import { Input, Textarea } from "@heroui/react";
 import FormContainer from "./FormContainer";
 
 const PersonalInformationForm = () => {
@@ -40,6 +39,7 @@ const PersonalInformationForm = () => {
           placeholder="Enter your email"
           type="email"
           variant="bordered"
+          value={resume.basics.contact.email}
           onChange={(e) => updateContact("email", e.currentTarget.value)}
         />
         <Input
@@ -49,6 +49,7 @@ const PersonalInformationForm = () => {
           name="github"
           placeholder="Enter your Github"
           variant="bordered"
+          value={resume.basics.contact.github}
           onChange={(e) => updateContact("github", e.currentTarget.value)}
         />
         <Input
@@ -58,6 +59,7 @@ const PersonalInformationForm = () => {
           name="linkedin"
           placeholder="Enter your LinkedIn"
           variant="bordered"
+          value={resume.basics.contact.linkedin}
           onChange={(e) => updateContact("linkedin", e.currentTarget.value)}
         />
         <Input
@@ -68,6 +70,7 @@ const PersonalInformationForm = () => {
           placeholder="Enter your Phone number"
           type="phone"
           variant="bordered"
+          value={resume.basics.contact.phone}
           onChange={(e) => updateContact("phone", e.currentTarget.value)}
         />
         <Input
@@ -77,15 +80,17 @@ const PersonalInformationForm = () => {
           name="portfolio"
           placeholder="Enter your portfolio url"
           variant="bordered"
+          value={resume.basics.contact.portfolio}
           onChange={(e) => updateContact("portfolio", e.currentTarget.value)}
         />
-        {/* <Textarea
+        <Textarea
           label="Address"
           labelPlacement="outside"
           placeholder="Enter your address"
           variant="bordered"
-          onChange={(e) => updateContact("portfolio", e.currentTarget.value)}
-        /> */}
+          value={resume.basics.contact.address}
+          onChange={(e) => updateContact("address", e.currentTarget.value)}
+        />
       </FormContainer.FieldWrapper>
     </FormContainer>
   );

@@ -1,3 +1,8 @@
+import {
+  CalendarDate,
+  parseDate,
+  parseAbsoluteToLocal,
+} from "@internationalized/date";
 import { IResume, ISectionItem } from "./type";
 
 export const cleanGeneratedResumeData = (rawFormat: IResume) => {
@@ -21,7 +26,7 @@ export const cleanGeneratedResumeData = (rawFormat: IResume) => {
     skills: rawFormat.skills?.map((skill) => ({
       id: skill?.id || "",
       name: skill?.name || "",
-      keywords: skill?.keywords || "",
+      keywords: skill?.keywords || [],
       level: skill?.level || "",
     })),
     work: rawFormat?.work?.map((work) => ({
@@ -49,4 +54,12 @@ export const cleanGeneratedResumeData = (rawFormat: IResume) => {
         ) || [],
     })),
   } as IResume;
+};
+
+export const toDateValue = (raw: string): CalendarDate | undefined => {
+  if (!raw) {
+    return undefined;
+  }
+
+  return parseAbsoluteToLocal(new Date(raw).toISOString());
 };
