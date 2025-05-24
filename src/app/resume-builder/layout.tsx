@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 import SideBar from "@/components/SideBar";
-import DownloadButton from "./components/DownloadButton";
 import Navigation from "./components/Navigation";
 import TemplateSelector from "./components/TemplateSelector";
+import AiGenerateButton from "./components/AiGenerateButton";
 
 export const metadata: Metadata = {
   title: "Resume Sprint - Create Your Resume",
@@ -21,12 +21,16 @@ export default function RootLayout({
       }}
     >
       {/* Header */}
-      <header className="max-w-8xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gray-200">
+      <header className="max-w-8xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gray-200 gap-4">
         <h1 className="text-3xl font-extrabold tracking-tight">
           Resume Sprint
         </h1>
         <Navigation />
-        <TemplateSelector />
+
+        <div className="flex flex-row gap-2 flex-1 justify-center items-center">
+          <AiGenerateButton />
+          <TemplateSelector />
+        </div>
       </header>
 
       {/* Main Content */}

@@ -1,66 +1,93 @@
-import React from "react";
-import { Form, Input, Button, Textarea } from "@heroui/react";
+import { useResumeStore } from "@/stores/resumeBuilderStore";
+import { Form, Input, Textarea } from "@heroui/react";
+import FormWrapper from "./FormWrapper";
+import FormContainer from "./FormContainer";
 
 const PersonalInformationForm = () => {
-  const [action, setAction] = React.useState(null);
+  const { updateBasics, resume, updateContact } = useResumeStore();
   return (
-    <Form
-      className="w-full max-w-xs flex flex-col gap-6"
-      //   onReset={() => setAction("reset")}
-      onSubmit={(e) => {
-        // e.preventDefault();
-        // let data = Object.fromEntries(new FormData(e.currentTarget));
-        // setAction(`submit ${JSON.stringify(data)}`);
-      }}
-    >
-      <Input
-        isRequired
-        errorMessage="Please enter a valid username"
-        label="Full Name"
-        labelPlacement="outside"
-        name="username"
-        placeholder="Enter your username"
-        type="text"
-        variant="bordered"
-      />
-      <Input
-        isRequired
-        errorMessage="Please enter a valid email"
-        label="Job Title"
-        labelPlacement="outside"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        variant="bordered"
-      />
-      <Input
-        isRequired
-        errorMessage="Please enter a valid email"
-        label="Email"
-        labelPlacement="outside"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        variant="bordered"
-      />
-      <Input
-        isRequired
-        errorMessage="Please enter a valid email"
-        label="Mobile Number"
-        labelPlacement="outside"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        variant="bordered"
-      />
-      <Textarea
-        className="max-w-xs"
-        label="Address"
-        labelPlacement="outside"
-        placeholder="Enter your description"
-        variant="bordered"
-      />
-    </Form>
+    <FormContainer>
+      <FormContainer.FieldWrapper>
+        <Input
+          isRequired
+          errorMessage="Please enter a valid name"
+          label="Full Name"
+          labelPlacement="outside"
+          name="name"
+          placeholder="Enter your name"
+          type="text"
+          variant="bordered"
+          value={resume.basics.name}
+          onChange={(e) => updateBasics("name", e.currentTarget.value)}
+        />
+        <Input
+          errorMessage="Please enter a valid label"
+          label="Label"
+          labelPlacement="outside"
+          name="label"
+          placeholder="Enter a label"
+          type="text"
+          variant="bordered"
+          value={resume.basics.label}
+          onChange={(e) => updateBasics("label", e.currentTarget.value)}
+        />
+        <Input
+          isRequired
+          errorMessage="Please enter a valid email"
+          label="Email"
+          labelPlacement="outside"
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+          variant="bordered"
+          onChange={(e) => updateContact("email", e.currentTarget.value)}
+        />
+        <Input
+          errorMessage="Please enter a valid github account"
+          label="Github"
+          labelPlacement="outside"
+          name="github"
+          placeholder="Enter your Github"
+          variant="bordered"
+          onChange={(e) => updateContact("github", e.currentTarget.value)}
+        />
+        <Input
+          errorMessage="Please enter a valid LinkedIn account"
+          label="LinkedIn"
+          labelPlacement="outside"
+          name="linkedin"
+          placeholder="Enter your LinkedIn"
+          variant="bordered"
+          onChange={(e) => updateContact("linkedin", e.currentTarget.value)}
+        />
+        <Input
+          errorMessage="Please enter a valid phone number"
+          label="Phone Number"
+          labelPlacement="outside"
+          name="phone"
+          placeholder="Enter your Phone number"
+          type="phone"
+          variant="bordered"
+          onChange={(e) => updateContact("phone", e.currentTarget.value)}
+        />
+        <Input
+          errorMessage="Please enter a portfolio url"
+          label="Portfolio"
+          labelPlacement="outside"
+          name="portfolio"
+          placeholder="Enter your portfolio url"
+          variant="bordered"
+          onChange={(e) => updateContact("portfolio", e.currentTarget.value)}
+        />
+        {/* <Textarea
+          label="Address"
+          labelPlacement="outside"
+          placeholder="Enter your address"
+          variant="bordered"
+          onChange={(e) => updateContact("portfolio", e.currentTarget.value)}
+        /> */}
+      </FormContainer.FieldWrapper>
+    </FormContainer>
   );
 };
 

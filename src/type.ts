@@ -1,4 +1,4 @@
-interface IContact {
+export interface IContact {
   email: string;
   phone: string;
   address?: string;
@@ -8,7 +8,7 @@ interface IContact {
   portfolio?: string;
 }
 
-interface IWork {
+export interface IWork {
   id: string;
   name: string;
   position: string;
@@ -19,7 +19,7 @@ interface IWork {
   keywords?: string[];
 }
 
-interface IEducation {
+export interface IEducation {
   id: string;
   institution: string;
   area: string;
@@ -30,13 +30,14 @@ interface IEducation {
   courses?: string[];
 }
 
-interface ISkill {
+export interface ISkill {
+  id: string;
   name: string;
   level?: "Beginner" | "Intermediate" | "Advanced" | "Expert";
   keywords?: string[];
 }
 
-interface ISectionItem {
+export interface ISectionItem {
   name: string;
   details?: string;
   date?: string;
@@ -45,7 +46,7 @@ interface ISectionItem {
   link?: string;
 }
 
-interface ISection {
+export interface ISection {
   title: string;
   items: ISectionItem[];
 }
@@ -63,9 +64,9 @@ export interface IResume {
   sections?: ISection[];
 }
 
-export type TTemplateKeys = "Slate Pro";
+export type TTemplateKeys = "Slate Pro" | "Elegance Bold";
 
 export interface ITemplate {
   label: TTemplateKeys;
-  component: React.ReactNode;
+  component: () => React.ReactNode;
 }
