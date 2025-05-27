@@ -26,7 +26,7 @@ const FieldContainerCard = ({
   onRemove?: () => void;
 }) => {
   return (
-    <div className="border-2 px-4 py-2 rounded-xl border-default-200 w-full shadow-md">
+    <div className="border-2 px-4 py-2 rounded-xl border-default-200 w-full shadow-md pb-6">
       {!!onRemove && (
         <div className="flex flex-row-reverse mb-2 -mr-1">
           <Button isIconOnly color="danger" variant="light" onPress={onRemove}>

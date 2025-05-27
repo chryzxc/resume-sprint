@@ -4,15 +4,17 @@
 /* @custom-variant dark (&:is(.dark *)); */
 
 :root {
-  --background: #ffffff;
+  --background: #F9FAFB;
   --foreground: #171717;
   --primary: #1e3a8a;
   --secondary: #fdc700;
 }
 
 @theme inline {
-  --color-background: var(--primary);
-  --color-foreground: var(--primary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -75,3 +75,12 @@ export interface ITemplate {
   label: TTemplateKeys;
   component: () => React.ReactNode;
 }
+
+export interface IConversation {
+  bot?: boolean;
+  message: string;
+  updatedUserResumeDataObject?: IResume | null;
+  updatedUserResumeDataHtml?: string | null;
+  actionTaken?: boolean;
+  error?: boolean;
+}

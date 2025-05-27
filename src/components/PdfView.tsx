@@ -41,7 +41,7 @@ const PdfView = () => {
         // height={PDF_HEIGHT}
         className="border rounded-lg shadow-lg h-[800px] "
       >
-        {selectedTemplate}
+        <div>{selectedTemplate}</div>
       </PDFViewer>
     );
   }, [activeTemplate, resume]);
@@ -59,7 +59,7 @@ const PdfView = () => {
 
   return (
     <div className="h-full w-full gap-4 flex flex-col">
-      <div className="flex justify-end w-full bg-red-500">
+      <div className="flex justify-end w-full ">
         <AiGenerateResumeButton />
       </div>
       {!isLoadingPdfView && pdfTemplate}

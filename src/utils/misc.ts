@@ -1,9 +1,5 @@
-import {
-  CalendarDate,
-  parseDate,
-  parseAbsoluteToLocal,
-} from "@internationalized/date";
-import { IResume, ISectionItem } from "./type";
+import { IResume, ISectionItem } from "@/type";
+import crypto from "crypto";
 
 export const cleanGeneratedResumeData = (rawFormat: IResume) => {
   return {
@@ -56,10 +52,14 @@ export const cleanGeneratedResumeData = (rawFormat: IResume) => {
   } as IResume;
 };
 
-export const toDateValue = (raw: string): CalendarDate | undefined => {
-  if (!raw) {
-    return undefined;
-  }
+// export const toDateValue = (raw: string): CalendarDate | undefined => {
+//   if (!raw) {
+//     return undefined;
+//   }
 
-  return parseAbsoluteToLocal(new Date(raw).toISOString());
-};
+//   return parseAbsoluteToLocal(new Date(raw).toISOString());
+// };
+
+export function generateHmacSignature(body: string, secret: string): string {
+  return crypto.createHmac("sha256", secret).update(body).digest("hex");
+}

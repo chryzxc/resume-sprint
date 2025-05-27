@@ -33,9 +33,7 @@ const SkillsForm = () => {
               onChange={(e) => updateSkill(index, "level", e.target.value)}
             >
               {levels.map((lvl) => (
-                <SelectItem key={lvl} value={lvl}>
-                  {lvl}
-                </SelectItem>
+                <SelectItem key={lvl}>{lvl}</SelectItem>
               ))}
             </Select>
           </FormContainer.FieldWrapper>

@@ -4,9 +4,10 @@ import React from "react";
 
 type TGeneratedResumeDataProps = {
   generatedResumeData: Partial<IResume>;
+  removeNullFields?: boolean;
 };
 
-const generateRow = (key: string, value: any, index: number) => {
+const generateRow = (key: string, value: unknown, index: number) => {
   if (!value) return null;
   if (typeof value === "string") {
     return (
@@ -32,40 +33,46 @@ const GeneratedResumeData = ({
       {Object.entries(generatedResumeData.basics?.contact || {}).map(
         ([key, value], idx) => generateRow(key, value, idx)
       )}
-      <div className="flex flex-col">
-        <p>Work</p>
-        {generatedResumeData.work?.map((data, idx) => (
-          <div key={`work-${idx}`} className="ml-4">
-            {Object.entries(data || {}).map(([key, value], idx) =>
-              generateRow(key, value, idx)
-            )}
+      {!!generatedResumeData.work?.length && (
+        <div className="flex flex-col">
+          <p>Work:</p>
+          {generatedResumeData.work?.map((data, idx) => (
+            <div key={`work-${idx}`} className="ml-4">
+              {Object.entries(data || {}).map(([key, value], idx) =>
+                generateRow(key, value, idx)
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      {!!generatedResumeData.education?.length && (
+        <div className="flex flex-col">
+          <p>Education:</p>
+          <div className="flex flex-col gap-1">
+            {generatedResumeData.education?.map((data, idx) => (
+              <div key={`education-${idx}`} className="ml-4">
+                {Object.entries(data || {}).map(([key, value], idx) =>
+                  generateRow(key, value, idx)
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="flex flex-col">
-        <p>Education</p>
-        <div className="flex flex-col gap-1">
-          {generatedResumeData.education?.map((data, idx) => (
-            <div key={`education-${idx}`} className="ml-4">
-              {Object.entries(data || {}).map(([key, value], idx) =>
-                generateRow(key, value, idx)
-              )}
-            </div>
-          ))}
         </div>
-      </div>
-      <div className="flex flex-col">
-        <p>Skills</p>
-        <div className="flex flex-col gap-1">
-          {generatedResumeData.skills?.map((data, idx) => (
-            <div key={`skills-${idx}`} className="ml-4">
-              {Object.entries(data || {}).map(([key, value], idx) =>
-                generateRow(key, value, idx)
-              )}
-            </div>
-          ))}
+      )}
+      {!!generatedResumeData.skills?.length && (
+        <div className="flex flex-col">
+          <p>Skills:</p>
+          <div className="flex flex-col gap-1">
+            {generatedResumeData.skills?.map((data, idx) => (
+              <div key={`skills-${idx}`} className="ml-4">
+                {Object.entries(data || {}).map(([key, value], idx) =>
+                  generateRow(key, value, idx)
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </Code>
   );
 };

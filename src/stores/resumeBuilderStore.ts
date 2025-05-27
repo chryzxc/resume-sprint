@@ -30,7 +30,11 @@ interface IResumeStore {
   ) => void;
   addWork: (data: IWork) => void;
   removeWork: (index: number) => void;
-  updateWork: (index: number, field: keyof IWork, value: string) => void;
+  updateWork: (
+    index: number,
+    field: keyof IWork,
+    value: string | string[]
+  ) => void;
   addEducation: (data: IEducation) => void;
   removeEducation: (index: number) => void;
   updateEducation: (
@@ -198,13 +202,15 @@ export const useResumeStore = create(
             },
           },
         })),
-      addSection: (data) =>
+      addSection: (data) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => ({
           resume: {
             ...state.resume,
             sections: [...(state.resume.sections || []), data],
           },
-        })),
+        }));
+      },
       removeSection: (index) => {
         set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => {
@@ -220,13 +226,16 @@ export const useResumeStore = create(
         });
         // set((state) => ({ ...state, isLoadingPdfView: false }));
       },
-      updateSection: (index, field, value) =>
+      updateSection: (index, field, value) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => {
           const updated = [...(state.resume.sections || [])];
           updated[index] = { ...updated[index], [field]: value };
           return { resume: { ...state.resume, sections: updated } };
-        }),
-      addSectionItem: (sectionIndex, data) =>
+        });
+      },
+      addSectionItem: (sectionIndex, data) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => {
           const updated = [...(state.resume.sections || [])];
           const sectionItems = updated[sectionIndex].items;
@@ -241,7 +250,8 @@ export const useResumeStore = create(
               sections: updated,
             },
           };
-        }),
+        });
+      },
       removeSectionItem: (sectionIndex, index) => {
         set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => {
@@ -262,14 +272,16 @@ export const useResumeStore = create(
         });
         // set((state) => ({ ...state, isLoadingPdfView: false }));
       },
-      updateSectionItem: (sectionIndex, index, field, value) =>
+      updateSectionItem: (sectionIndex, index, field, value) => {
+        set((state) => ({ ...state, isLoadingPdfView: true }));
         set((state) => {
           const sections = [...(state.resume.sections || [])];
 
           const sectionItems = sections[sectionIndex].items;
           sectionItems[index] = { ...sectionItems[index], [field]: value };
           return { resume: { ...state.resume, sections: sections } };
-        }),
+        });
+      },
       updateResume: (key, value) =>
         set((state) => ({
           resume: {
@@ -300,3 +312,9 @@ export const useResumeStore = create(
     }
   )
 );
+
+if (typeof window !== "undefined") {
+  window.onbeforeunload = () => {
+    useResumeStore.getState().resetResume();
+  };
+}

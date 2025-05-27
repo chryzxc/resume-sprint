@@ -1,20 +1,21 @@
 "use client";
+import { generateResumeData } from "@/api-services/ai-service";
 import { useResumeStore } from "@/stores/resumeBuilderStore";
-import { Button } from "@heroui/react";
-import axios from "axios";
-import React from "react";
+import { addToast, Button } from "@heroui/react";
 
 const AiGenerateButton = () => {
   const { resume, setResume } = useResumeStore();
   const generateData = async () => {
     try {
-      const { data } = await axios.post("api/generate-resume", {
-        resumeData: resume,
+      const { resumeData } = await generateResumeData({ resumeData: resume });
+
+      setResume(resumeData);
+    } catch {
+      addToast({
+        color: "danger",
+        title: "Error",
+        description: "Failed to generate resume data",
       });
-      console.log("Test", data.resumeData);
-      setResume(data.resumeData);
-    } catch (e) {
-      console.log("error", e);
     }
   };
   return <Button onPress={generateData}>AI Generate</Button>;

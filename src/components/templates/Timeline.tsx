@@ -1,12 +1,11 @@
 import { IResume } from "@/type";
 import {
   Document,
+  Link,
   Page,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
-  Font,
-  Link,
 } from "@react-pdf/renderer";
 
 // Register fonts

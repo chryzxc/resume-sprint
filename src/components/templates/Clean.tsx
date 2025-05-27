@@ -1,12 +1,5 @@
 import { IResume } from "@/type";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Font,
-} from "@react-pdf/renderer";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 
 // Use standard PDF fonts for guaranteed compatibility
 const styles = StyleSheet.create({

@@ -1,63 +1,19 @@
 import { IResume } from "@/type";
-import { cleanGeneratedResumeData } from "@/utils";
+
 import { Groq } from "groq-sdk";
 import { NextResponse } from "next/server";
+import envConfig from "../../../../env-config";
+import { cleanGeneratedResumeData } from "@/utils/misc";
+import { SAMPLE_RESUME_FORMAT } from "@/constants";
 
-const sampleData: IResume = {
-  basics: {
-    name: "",
-    label: "",
-    contact: {
-      email: "",
-      phone: "",
-      website: "",
-      linkedin: "",
-    },
-    summary: "",
-  },
-  work: [
-    {
-      id: "",
-      name: "",
-      position: "",
-      startDate: "",
-      highlights: ["", "", ""],
-    },
-  ],
-  education: [
-    {
-      id: "",
-      institution: "",
-      area: "",
-      studyType: "",
-      startDate: "",
-      endDate: "",
-    },
-  ],
-  skills: [{ id: "", name: "", level: "Expert" }],
-  sections: [
-    {
-      title: "",
-      items: [
-        {
-          name: "",
-          details: "",
-          date: "",
-        },
-      ],
-    },
-    {
-      title: "",
-      items: [{ name: "" }, { name: "" }],
-    },
-  ],
-};
+export interface IGenerateResumeDataResponse {
+  resumeData: IResume;
+}
 
 export async function POST(req: Request) {
-  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  const groq = new Groq({ apiKey: envConfig().grocApiKey });
   const { content } = await req.json();
 
-  console.log("Resume data", content);
   try {
     const response = await groq.chat.completions.create({
       model: "llama-3.1-8b-instant",
@@ -67,15 +23,19 @@ export async function POST(req: Request) {
           role: "system",
           content: `Create a resume data using the provided content and respond using a json format only. The label field in basics is the role name and generate the data based on the role. Only generate what is in the content and don't generate random values. Follow this format strictly. 
           Resume content: ${JSON.stringify(content)}
-          Output format: ${JSON.stringify(sampleData)}`,
+          Output format: ${JSON.stringify(SAMPLE_RESUME_FORMAT)}`,
         },
       ],
     });
 
-    const rawFormat = response.choices[0].message.content as IResume;
+    const rawFormat = response.choices[0].message.content as unknown as string;
 
-    return Response.json(cleanGeneratedResumeData(JSON.parse(rawFormat)));
-  } catch (error) {
+    const responseData: IGenerateResumeDataResponse = {
+      resumeData: cleanGeneratedResumeData(JSON.parse(rawFormat)),
+    };
+
+    return Response.json({ resumeData: responseData });
+  } catch {
     return new NextResponse("Something went wrong", { status: 500 });
   }
 }

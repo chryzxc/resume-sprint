@@ -7,6 +7,7 @@ import {
 import { Typewriter } from "react-simple-typewriter";
 import Lottie from "lottie-react";
 import aiAnimation from "../../public/animations/ai.json";
+import { Button } from "@heroui/react";
 
 export default function HomePage() {
   return (
@@ -20,12 +21,13 @@ export default function HomePage() {
         <p className="text-lg sm:text-xl text-indigo-100 max-w-2xl mb-8">
           No sign-up needed. Just input your info and let the AI do the rest.
         </p>
-        <a
-          href="#generate"
-          className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white font-semibold transition"
+        <Button
+          variant="light"
+          size="lg"
+          className="bg-primary font-bold text-white"
         >
-          Generate My Resume
-        </a>
+          <a href="#generate">Generate My Resume</a>
+        </Button>
       </section>
 
       {/* AI PREVIEW */}

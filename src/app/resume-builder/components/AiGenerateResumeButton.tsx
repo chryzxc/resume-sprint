@@ -50,15 +50,13 @@ const AiGenerateResumeButton = () => {
     <div>
       <Button
         variant="flat"
-        color="default"
         onPress={onOpen}
-        className="transition-all text-background"
-        startContent={
-          <SparklesIcon height={20} className="animate-pulse text-background" />
-        }
+        className="transition-all bg-gradient-to-tl from-secondary to-yellow-300 text-white"
+        startContent={<SparklesIcon height={20} className="animate-pulse " />}
       >
         Generate with AI
       </Button>
+
       <Modal
         isDismissable={false}
         isKeyboardDismissDisabled={true}
@@ -67,7 +65,7 @@ const AiGenerateResumeButton = () => {
         size="2xl"
       >
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Let AI Build Your Resume
@@ -75,9 +73,7 @@ const AiGenerateResumeButton = () => {
               <ModalBody className="w-full">
                 {generatedResumeData ? (
                   <div className="w-full">
-                    <p className="italic font-bold mb-1 text-background">
-                      Generated Data:
-                    </p>
+                    <p className="mb-1">Generated Data:</p>
                     <GeneratedResumeData
                       generatedResumeData={generatedResumeData}
                     />
@@ -86,6 +82,7 @@ const AiGenerateResumeButton = () => {
                   <div className="flex flex-col gap-1">
                     <p>{`Enter your details in text box instead of filling out multiple fields. Just describe your work, education, and skills, and we'll format it for you.`}</p>
                     <Textarea
+                      disabled={loading}
                       value={content}
                       variant="bordered"
                       onChange={(e) => setContent(e.currentTarget.value)}
@@ -103,7 +100,7 @@ const AiGenerateResumeButton = () => {
                     disabled={!content || loading}
                     color="primary"
                     onPress={generateData}
-                    className="bg-background"
+                    // className=""
                   >
                     {loading ? "Generating" : "Generate"}
                   </Button>
@@ -119,7 +116,7 @@ const AiGenerateResumeButton = () => {
                     <Button
                       color="primary"
                       onPress={applyGeneratedData}
-                      className="bg-background"
+                      className=""
                     >
                       Apply generated data
                     </Button>
