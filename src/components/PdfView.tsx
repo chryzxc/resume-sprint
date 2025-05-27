@@ -47,8 +47,8 @@ const PdfView = () => {
   }, [activeTemplate, resume]);
 
   useEffect(() => {
-    if (isLoadingPdfView) {
-      const container = document?.getElementById("root");
+    if (isLoadingPdfView && typeof window !== "undefined") {
+      const container = document.getElementById("root");
       if (container) {
         const root = createRoot(container);
         root.render(<PdfView />);
