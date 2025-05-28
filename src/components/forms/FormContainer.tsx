@@ -1,7 +1,7 @@
 import { Button, Form } from "@heroui/react";
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { PDF_HEIGHT } from "../PdfView";
+import { PDF_HEIGHT } from "@/constants";
 
 type TFormContainerProps = {
   children: React.ReactNode;

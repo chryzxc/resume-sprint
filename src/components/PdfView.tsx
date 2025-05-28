@@ -10,8 +10,7 @@ import Clean from "./templates/Clean";
 import ModernSidebar from "./templates/ModernSidebar";
 import Timeline from "./templates/Timeline";
 import AiGenerateResumeButton from "@/app/resume-builder/components/AiGenerateResumeButton";
-
-export const PDF_HEIGHT = 800;
+import { PDF_HEIGHT } from "@/constants";
 
 const PdfView = () => {
   const { activeTemplate, isLoadingPdfView, setIsLoadingPdfView, resume } =
@@ -38,8 +37,8 @@ const PdfView = () => {
     return (
       <PDFViewer
         width="100%"
-        // height={PDF_HEIGHT}
-        className="border rounded-lg shadow-lg h-[800px] "
+        height={PDF_HEIGHT}
+        className="border rounded-lg shadow-lg"
       >
         <div>{selectedTemplate}</div>
       </PDFViewer>

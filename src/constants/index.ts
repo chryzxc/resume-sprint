@@ -1,5 +1,7 @@
 import { IResume } from "@/type";
 
+export const PDF_HEIGHT = 800;
+
 export const SAMPLE_RESUME_FORMAT: IResume = {
   basics: {
     name: "",
