@@ -4,15 +4,17 @@ import { PDF_HEIGHT } from "@/constants";
 import { useResumeStore } from "@/stores/resumeBuilderStore";
 import { TTemplateKeys } from "@/type";
 import { PDFViewer } from "@react-pdf/renderer";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import BoldGeometric from "./templates/BoldGeometric";
 import ClassicProfessional from "./templates/ClassicProfessional";
 import Clean from "./templates/Clean";
 import ModernSidebar from "./templates/ModernSidebar";
 import Timeline from "./templates/Timeline";
+import { createRoot } from "react-dom/client";
 
 const PdfView = () => {
-  const { activeTemplate, isLoadingPdfView, resume } = useResumeStore();
+  const { activeTemplate, isLoadingPdfView, resume, setIsLoadingPdfView } =
+    useResumeStore();
 
   const pdfTemplate = useMemo(() => {
     const templateMapper: Record<TTemplateKeys, React.ReactNode> = {
@@ -43,16 +45,16 @@ const PdfView = () => {
     );
   }, [activeTemplate, resume]);
 
-  // useEffect(() => {
-  //   if (isLoadingPdfView && typeof window !== "undefined") {
-  //     const container = document.getElementById("root");
-  //     if (container) {
-  //       const root = createRoot(container);
-  //       root.render(<PdfView />);
-  //     }
-  //   }
-  //   setIsLoadingPdfView(false);
-  // }, [isLoadingPdfView, setIsLoadingPdfView]);
+  useEffect(() => {
+    if (isLoadingPdfView && typeof window !== "undefined") {
+      const container = document.getElementById("root");
+      if (container) {
+        const root = createRoot(container);
+        root.render(<PdfView />);
+      }
+    }
+    setIsLoadingPdfView(false);
+  }, [isLoadingPdfView, setIsLoadingPdfView]);
 
   return (
     <div className="h-full w-full gap-4 flex flex-col">
